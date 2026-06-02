@@ -139,6 +139,36 @@ export const colorPalettes: Record<string, ColorPalette> = {
     textClass: 'text-violet-600',
     lightTextClass: 'text-violet-500',
   },
+  roseMarron: {
+    name: 'Rose Marron',
+    primary: '#a85a6a',
+    secondary: '#f5f3f1',
+    accent: '#8b4858',
+    text: '#2d1f25',
+    lightText: '#64748b',
+    background: '#ffffff',
+    border: '#e2e8f0',
+    primaryBg: 'bg-rose-700',
+    secondaryBg: 'bg-rose-50',
+    accentBg: 'bg-rose-800',
+    textClass: 'text-rose-700',
+    lightTextClass: 'text-rose-600',
+  },
+  ocreBeige: {
+    name: 'Ocre Beige',
+    primary: '#b8956a',
+    secondary: '#faf8f3',
+    accent: '#9d7f5f',
+    text: '#3d3028',
+    lightText: '#6b7280',
+    background: '#ffffff',
+    border: '#e2e8f0',
+    primaryBg: 'bg-amber-700',
+    secondaryBg: 'bg-amber-50',
+    accentBg: 'bg-amber-800',
+    textClass: 'text-amber-700',
+    lightTextClass: 'text-amber-600',
+  },
 };
 
 const LEGACY_PALETTE_MAP: Record<string, string> = {
@@ -183,7 +213,9 @@ export type TemplateType =
   | 'canvaPremium'
   | 'novoresume'
   | 'enhancv'
-  | 'reactiveResume';
+  | 'reactiveResume'
+  | 'sidebarMode'
+  | 'sidebarElegant';
 
 export const templateMetadata: Record<
   TemplateType,
@@ -218,6 +250,18 @@ export const templateMetadata: Record<
     brand: 'Reactive Resume',
     description: 'Minimaliste développeur, optimisé PDF',
     atsCompatible: true,
+  },
+  sidebarMode: {
+    name: 'Sidebar Mode',
+    brand: 'NovaCV',
+    description: 'Sidebar colorée moderne, design professionnel',
+    atsCompatible: false,
+  },
+  sidebarElegant: {
+    name: 'Sidebar Élégant',
+    brand: 'NovaCV',
+    description: 'Sidebar chaleureuse, structure professionnelle',
+    atsCompatible: false,
   },
 };
 

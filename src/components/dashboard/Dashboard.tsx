@@ -3,13 +3,14 @@ import { useAuth } from '../../context/AuthContext';
 import { supabase, Database } from '../../lib/supabase';
 import { FileText, Plus, Edit2, Trash2, Copy, LogOut, Menu, X, Crown, Clock, FileCheck } from 'lucide-react';
 import { translations, Language } from '../../lib/translations';
-import { templateMetadata } from '../../lib/themes';
+import { templateMetadata, TemplateType } from '../../lib/themes';
 import { normalizeTemplate } from '../../lib/cvTypes';
+import { TemplateGallery } from '../templates/TemplateGallery';
 
 type CV = Database['public']['Tables']['cvs']['Row'];
 
 interface DashboardProps {
-  onCreateCV: () => void;
+  onCreateCV: (template: TemplateType) => void;
   onEditCV: (cvId: string) => void;
 }
 
@@ -19,6 +20,7 @@ export function Dashboard({ onCreateCV, onEditCV }: DashboardProps) {
   const [loading, setLoading] = useState(true);
   const [language, setLanguage] = useState<Language>('fr');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [showTemplateGallery, setShowTemplateGallery] = useState(false);
 
   const t = translations[language];
 
@@ -203,7 +205,7 @@ export function Dashboard({ onCreateCV, onEditCV }: DashboardProps) {
             </p>
           </div>
           <button
-            onClick={onCreateCV}
+            onClick={() => setShowTemplateGallery(true)}
             className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-2.5 rounded-xl font-medium hover:from-blue-700 hover:to-blue-800 transition-all flex items-center justify-center gap-2 shadow-lg shadow-blue-500/25"
           >
             <Plus className="w-5 h-5" />
@@ -229,7 +231,7 @@ export function Dashboard({ onCreateCV, onEditCV }: DashboardProps) {
                 : 'Create your first professional CV in minutes'}
             </p>
             <button
-              onClick={onCreateCV}
+              onClick={() => setShowTemplateGallery(true)}
               className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium"
             >
               <Plus className="w-5 h-5" />
@@ -325,6 +327,17 @@ export function Dashboard({ onCreateCV, onEditCV }: DashboardProps) {
           </div>
         </div>
       </main>
+
+      {showTemplateGallery && (
+        <TemplateGallery
+          onTemplateSelect={(template) => {
+            setShowTemplateGallery(false);
+            onCreateCV(template);
+          }}
+          onCancel={() => setShowTemplateGallery(false)}
+          language={language}
+        />
+      )}
     </div>
   );
 }

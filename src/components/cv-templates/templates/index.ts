@@ -7,6 +7,8 @@ import { CanvaPremiumTemplate } from './CanvaPremiumTemplate';
 import { NovoresumeTemplate } from './NovoresumeTemplate';
 import { EnhancvTemplate } from './EnhancvTemplate';
 import { ReactiveResumeTemplate } from './ReactiveResumeTemplate';
+import { SidebarModeTemplate } from './SidebarModeTemplate';
+import { SidebarElegantTemplate } from './SidebarElegantTemplate';
 
 export type { TemplateProps };
 
@@ -16,6 +18,8 @@ export const templateRegistry: Record<TemplateType, FC<TemplateProps>> = {
   novoresume: NovoresumeTemplate,
   enhancv: EnhancvTemplate,
   reactiveResume: ReactiveResumeTemplate,
+  sidebarMode: SidebarModeTemplate,
+  sidebarElegant: SidebarElegantTemplate,
 };
 
 export function getTemplate(templateType: TemplateType | string): FC<TemplateProps> {

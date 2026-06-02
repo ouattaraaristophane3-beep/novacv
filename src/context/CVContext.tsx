@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useCallback, ReactNode, useEffect } from 'react';
 import { supabase, Database } from '../lib/supabase';
+import { TemplateType } from '../lib/themes';
 
 type CV = Database['public']['Tables']['cvs']['Row'];
 type Experience = Database['public']['Tables']['experiences']['Row'];
@@ -19,7 +20,7 @@ interface CVContextType {
   saving: boolean;
   hasUnsavedChanges: boolean;
   loadCV: (cvId: string) => Promise<void>;
-  createCV: (userId: string) => Promise<string | null>;
+  createCV: (userId: string, template?: TemplateType) => Promise<string | null>;
   updateCVLocal: (updates: Partial<CV>) => void;
   saveCV: () => Promise<void>;
   addExperience: (experience: Partial<Experience>) => void;
@@ -108,12 +109,22 @@ export function CVProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
-  const createCV = useCallback(async (userId: string): Promise<string | null> => {
+  const createCV = useCallback(async (userId: string, template?: TemplateType): Promise<string | null> => {
     setSaving(true);
     try {
+      const newCVData: any = { user_id: userId };
+      
+      if (template) {
+        newCVData.template = template;
+        newCVData.color_theme = 
+          template === 'sidebarMode' ? 'roseMarron' :
+          template === 'sidebarElegant' ? 'ocreBeige' :
+          'blue';
+      }
+
       const { data, error } = await supabase
         .from('cvs')
-        .insert({ user_id: userId })
+        .insert(newCVData)
         .select()
         .single();
 

@@ -82,6 +82,8 @@ export function isTemplateType(value: string): value is TemplateType {
     'novoresume',
     'enhancv',
     'reactiveResume',
+    'sidebarMode',
+    'sidebarElegant',
   ];
   return valid.includes(value as TemplateType);
 }

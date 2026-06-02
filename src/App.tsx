@@ -6,6 +6,7 @@ import { AuthPage } from './components/auth/AuthPage';
 import { Dashboard } from './components/dashboard/Dashboard';
 import { CVEditor } from './components/cv-editor/CVEditor';
 import { Loader2 } from 'lucide-react';
+import { TemplateType } from './lib/themes';
 
 function PrivateRoute({ children }: { children: React.ReactNode }) {
   const { user, loading } = useAuth();
@@ -26,9 +27,9 @@ function DashboardWrapper() {
   const { user } = useAuth();
   const { createCV } = useCV();
 
-  const handleCreateCV = async () => {
+  const handleCreateCV = async (template: TemplateType) => {
     if (!user) return;
-    const id = await createCV(user.id);
+    const id = await createCV(user.id, template);
     if (id) {
       navigate(`/cv/${id}`);
     }

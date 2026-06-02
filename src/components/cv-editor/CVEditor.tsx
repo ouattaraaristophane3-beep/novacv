@@ -17,19 +17,13 @@ import {
   Check,
   AlertCircle,
   ChevronRight,
-  User,
-  Briefcase,
-  GraduationCap,
-  Wrench,
+  Palette,
   LogOut,
 } from 'lucide-react';
-import { PersonalInfoEditor } from './PersonalInfoEditor';
-import { ExperienceEditor } from './ExperienceEditor';
-import { EducationEditor } from './EducationEditor';
-import { SkillsEditor } from './SkillsEditor';
-import CVPreview from './CVPreview';
+import { TemplateAdaptiveEditor } from './TemplateAdaptiveEditor';
 import { TemplatePalettePanel } from './TemplatePalettePanel';
 import { CustomizationPanel } from './CustomizationPanel';
+import CVPreview from './CVPreview';
 
 interface CVEditorProps {
   cvId: string;
@@ -41,10 +35,8 @@ const languageOptions = [
 ];
 
 const steps = [
-  { id: 'info', label: 'Personal Info', icon: User },
-  { id: 'experience', label: 'Experience', icon: Briefcase },
-  { id: 'education', label: 'Education', icon: GraduationCap },
-  { id: 'skills', label: 'Skills', icon: Wrench },
+  { id: 'edit', label: 'Édition', icon: Edit2 },
+  { id: 'appearance', label: 'Apparence', icon: Palette },
 ];
 
 export function CVEditor({ cvId }: CVEditorProps) {
@@ -283,9 +275,6 @@ export function CVEditor({ cvId }: CVEditorProps) {
           {/* Editor Content */}
           <div className="flex-1 overflow-y-auto p-4 sm:p-6">
             <div className="max-w-4xl mx-auto space-y-6">
-              <TemplatePalettePanel language={language} />
-              <CustomizationPanel language={language} />
-
               {/* Language Selection */}
               <div className="bg-white rounded-xl border border-gray-200 p-6">
                 <div className="flex items-center gap-2 mb-4">
@@ -312,17 +301,14 @@ export function CVEditor({ cvId }: CVEditorProps) {
 
               {/* Step Content */}
               <div className="space-y-4">
-                {currentStepId === 'info' && (
-                  <PersonalInfoEditor language={language} />
+                {currentStepId === 'edit' && (
+                  <TemplateAdaptiveEditor cvId={cvId} language={language} />
                 )}
-                {currentStepId === 'experience' && (
-                  <ExperienceEditor language={language} />
-                )}
-                {currentStepId === 'education' && (
-                  <EducationEditor language={language} />
-                )}
-                {currentStepId === 'skills' && (
-                  <SkillsEditor language={language} />
+                {currentStepId === 'appearance' && (
+                  <>
+                    <TemplatePalettePanel language={language} />
+                    <CustomizationPanel language={language} />
+                  </>
                 )}
               </div>
 
